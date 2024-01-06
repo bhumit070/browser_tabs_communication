@@ -3,13 +3,16 @@ import './style.css';
 const toggleButtons = [...document.querySelectorAll('.audio-player-button')];
 
 const AudioMap: Record<string, string> = {
-    'calm-chill-beautiful': '/audio/calm-chill-beautiful-141317.mp3',
+    'calm-chill-beautiful':
+        'https://res.cloudinary.com/bhumit070/video/upload/v1704549507/tabs_communication_demo/fsi49xvo7teqezdvf27m.mp3',
     'happy-day-background-vlog-music':
-        '/audio/happy-day-background-vlog-music-148320.mp3',
+        'https://res.cloudinary.com/bhumit070/video/upload/v1704549555/tabs_communication_demo/hkwnogd9dtilwjks5q6i.mp3',
     'motivational-electronic-distant':
-        '/audio/motivational-electronic-distant-132919.mp3',
-    'summer-party': '/audio/summer-party-157615.mp3',
-    'tvari-tokyo-cafe': '/audio/tvari-tokyo-cafe-159065.mp3',
+        'https://res.cloudinary.com/bhumit070/video/upload/v1704549602/tabs_communication_demo/hjscmkvhwjparkkwr90d.mp3',
+    'summer-party':
+        'https://res.cloudinary.com/bhumit070/video/upload/v1704549660/tabs_communication_demo/qxt5eubsenubgb672dto.mp3',
+    'tvari-tokyo-cafe':
+        'https://res.cloudinary.com/bhumit070/video/upload/v1704549696/tabs_communication_demo/mj97jpqk3fznioylruew.mp3',
 };
 
 let broadCast = new BroadcastChannel('audio-player');
@@ -58,8 +61,7 @@ async function handleButtonClick(button: Element) {
         if (!buttonName) return;
 
         const audioPath = AudioMap[buttonName];
-        const remoteAudio = `${window.location.protocol}//${window.location.host}${audioPath}`;
-        if (currentPlayingAudio === remoteAudio) {
+        if (currentPlayingAudio === audioPath) {
             if (audio.paused) {
                 await audio.play();
                 toggleButtonUi(button, true);
@@ -73,7 +75,7 @@ async function handleButtonClick(button: Element) {
             currentPlayingButton = button;
         }
 
-        currentPlayingAudio = remoteAudio;
+        currentPlayingAudio = audioPath;
         audio.src = currentPlayingAudio;
         document.body.appendChild(audio);
         toggleButtonUi(button, true);
